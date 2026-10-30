@@ -1,0 +1,1005 @@
+{
+  "method": "src/backtest_real.py per-day logic, day-by-day load, equity carried forward per parameter group; ATM is the chain-inferred proxy, not observed SPX spot",
+  "source": "Databento OPRA.PILLAR SPXW CBBO-1m, batch OPRA-20261030-TTQY868VHE, local csv files only; no download, no fee in this run",
+  "params": {
+    "distance": [
+      20,
+      30,
+      50
+    ],
+    "wing": [
+      10,
+      20
+    ],
+    "stop_mult": 1.5,
+    "entry_et": "10:00",
+    "exit_et": "15:30",
+    "fee_per_trade": 5.2,
+    "contracts": 1,
+    "start_equity": 1000.0
+  },
+  "days": [
+    "2026-09-29",
+    "2026-09-30",
+    "2026-10-01",
+    "2026-10-02",
+    "2026-10-05",
+    "2026-10-06",
+    "2026-10-07",
+    "2026-10-08",
+    "2026-10-09",
+    "2026-10-12",
+    "2026-10-13",
+    "2026-10-14",
+    "2026-10-15",
+    "2026-10-16",
+    "2026-10-19",
+    "2026-10-20",
+    "2026-10-21",
+    "2026-10-22",
+    "2026-10-23",
+    "2026-10-26",
+    "2026-10-27",
+    "2026-10-28"
+  ],
+  "n_days": 22,
+  "first_half_days": [
+    "2026-09-29",
+    "2026-09-30",
+    "2026-10-01",
+    "2026-10-02",
+    "2026-10-05",
+    "2026-10-06",
+    "2026-10-07",
+    "2026-10-08",
+    "2026-10-09",
+    "2026-10-12",
+    "2026-10-13"
+  ],
+  "second_half_days": [
+    "2026-10-14",
+    "2026-10-15",
+    "2026-10-16",
+    "2026-10-19",
+    "2026-10-20",
+    "2026-10-21",
+    "2026-10-22",
+    "2026-10-23",
+    "2026-10-26",
+    "2026-10-27",
+    "2026-10-28"
+  ],
+  "note": "n=22 trading days only. No annualisation. This does NOT claim to reproduce any GFM curve.",
+  "groups": {
+    "distance_20_wing_10": {
+      "full": {
+        "n_trades": 5,
+        "n_skipped": 17,
+        "wins": 2,
+        "win_rate": 0.4,
+        "final_equity": 166.5,
+        "total_return": -0.833,
+        "max_drawdown": 0.908,
+        "profit_factor": 0.49
+      },
+      "first_half": {
+        "n_trades": 5,
+        "n_skipped": 6,
+        "wins": 2,
+        "win_rate": 0.4,
+        "pnl_sum": -833.5,
+        "profit_factor": 0.49,
+        "equity_start": 1000.0,
+        "equity_end": 166.5
+      },
+      "second_half": {
+        "n_trades": 0,
+        "n_skipped": 11,
+        "wins": 0,
+        "win_rate": null,
+        "pnl_sum": 0,
+        "profit_factor": null,
+        "equity_start": 166.5,
+        "equity_end": 166.5
+      },
+      "trades": [
+        {
+          "date": "2026-09-29",
+          "atm": 7675.0,
+          "short_put": 7655.0,
+          "short_call": 7695.0,
+          "credit": 4.4,
+          "pnl": 434.8,
+          "outcome": "expiry",
+          "equity": 1434.8
+        },
+        {
+          "date": "2026-09-30",
+          "atm": 7710.0,
+          "short_put": 7690.0,
+          "short_call": 7730.0,
+          "credit": 3.8,
+          "pnl": 374.8,
+          "outcome": "expiry",
+          "equity": 1809.6
+        },
+        {
+          "date": "2026-10-01",
+          "atm": 7655.0,
+          "short_put": 7635.0,
+          "short_call": 7675.0,
+          "credit": 4.2,
+          "pnl": -585.2,
+          "outcome": "stop",
+          "equity": 1224.4
+        },
+        {
+          "date": "2026-10-02",
+          "atm": 7735.0,
+          "short_put": 7715.0,
+          "short_call": 7755.0,
+          "credit": 4.7,
+          "pnl": -535.2,
+          "outcome": "stop",
+          "equity": 689.2
+        },
+        {
+          "date": "2026-10-05",
+          "atm": 7735.0,
+          "short_put": 7715.0,
+          "short_call": 7755.0,
+          "credit": 3.45,
+          "pnl": -522.7,
+          "outcome": "stop",
+          "equity": 166.5
+        },
+        {
+          "date": "2026-10-06",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-07",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-08",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-09",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-12",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-13",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-14",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-15",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-16",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-19",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-20",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-21",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-22",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-23",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-26",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-27",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-28",
+          "skipped": "margin"
+        }
+      ]
+    },
+    "distance_20_wing_20": {
+      "full": {
+        "n_trades": 1,
+        "n_skipped": 21,
+        "wins": 1,
+        "win_rate": 1.0,
+        "final_equity": 2044.8,
+        "total_return": 1.045,
+        "max_drawdown": 0.0,
+        "profit_factor": null
+      },
+      "first_half": {
+        "n_trades": 0,
+        "n_skipped": 11,
+        "wins": 0,
+        "win_rate": null,
+        "pnl_sum": 0,
+        "profit_factor": null,
+        "equity_start": 1000.0,
+        "equity_end": 1000.0
+      },
+      "second_half": {
+        "n_trades": 1,
+        "n_skipped": 10,
+        "wins": 1,
+        "win_rate": 1.0,
+        "pnl_sum": 1044.8,
+        "profit_factor": null,
+        "equity_start": 1000.0,
+        "equity_end": 2044.8
+      },
+      "trades": [
+        {
+          "date": "2026-09-29",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-09-30",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-01",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-02",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-05",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-06",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-07",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-08",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-09",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-12",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-13",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-14",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-15",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-16",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-19",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-20",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-21",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-22",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-23",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-26",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-27",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-28",
+          "atm": 7730.0,
+          "short_put": 7710.0,
+          "short_call": 7750.0,
+          "credit": 10.5,
+          "pnl": 1044.8,
+          "outcome": "expiry",
+          "equity": 2044.8
+        }
+      ]
+    },
+    "distance_30_wing_10": {
+      "full": {
+        "n_trades": 5,
+        "n_skipped": 17,
+        "wins": 3,
+        "win_rate": 0.6,
+        "final_equity": 1009.0,
+        "total_return": 0.009,
+        "max_drawdown": 0.629,
+        "profit_factor": 1.01
+      },
+      "first_half": {
+        "n_trades": 4,
+        "n_skipped": 7,
+        "wins": 2,
+        "win_rate": 0.5,
+        "pnl_sum": -435.8,
+        "profit_factor": 0.54,
+        "equity_start": 1000.0,
+        "equity_end": 564.2
+      },
+      "second_half": {
+        "n_trades": 1,
+        "n_skipped": 10,
+        "wins": 1,
+        "win_rate": 1.0,
+        "pnl_sum": 444.8,
+        "profit_factor": null,
+        "equity_start": 564.2,
+        "equity_end": 1009.0
+      },
+      "trades": [
+        {
+          "date": "2026-09-29",
+          "atm": 7675.0,
+          "short_put": 7645.0,
+          "short_call": 7705.0,
+          "credit": 2.95,
+          "pnl": 289.8,
+          "outcome": "expiry",
+          "equity": 1289.8
+        },
+        {
+          "date": "2026-09-30",
+          "atm": 7710.0,
+          "short_put": 7680.0,
+          "short_call": 7740.0,
+          "credit": 2.35,
+          "pnl": 229.8,
+          "outcome": "expiry",
+          "equity": 1519.6
+        },
+        {
+          "date": "2026-10-01",
+          "atm": 7655.0,
+          "short_put": 7625.0,
+          "short_call": 7685.0,
+          "credit": 3.0,
+          "pnl": -455.2,
+          "outcome": "stop",
+          "equity": 1064.4
+        },
+        {
+          "date": "2026-10-02",
+          "atm": 7735.0,
+          "short_put": 7705.0,
+          "short_call": 7765.0,
+          "credit": 3.3,
+          "pnl": -500.2,
+          "outcome": "stop",
+          "equity": 564.2
+        },
+        {
+          "date": "2026-10-05",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-06",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-07",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-08",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-09",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-12",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-13",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-14",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-15",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-16",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-19",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-20",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-21",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-22",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-23",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-26",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-27",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-28",
+          "atm": 7730.0,
+          "short_put": 7700.0,
+          "short_call": 7760.0,
+          "credit": 4.5,
+          "pnl": 444.8,
+          "outcome": "expiry",
+          "equity": 1009.0
+        }
+      ]
+    },
+    "distance_30_wing_20": {
+      "full": {
+        "n_trades": 0,
+        "n_skipped": 22,
+        "wins": 0,
+        "win_rate": null,
+        "final_equity": 1000.0,
+        "total_return": 0.0,
+        "max_drawdown": 0.0,
+        "profit_factor": null
+      },
+      "first_half": {
+        "n_trades": 0,
+        "n_skipped": 11,
+        "wins": 0,
+        "win_rate": null,
+        "pnl_sum": 0,
+        "profit_factor": null,
+        "equity_start": 1000.0,
+        "equity_end": 1000.0
+      },
+      "second_half": {
+        "n_trades": 0,
+        "n_skipped": 11,
+        "wins": 0,
+        "win_rate": null,
+        "pnl_sum": 0,
+        "profit_factor": null,
+        "equity_start": 1000.0,
+        "equity_end": 1000.0
+      },
+      "trades": [
+        {
+          "date": "2026-09-29",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-09-30",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-01",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-02",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-05",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-06",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-07",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-08",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-09",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-12",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-13",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-14",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-15",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-16",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-19",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-20",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-21",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-22",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-23",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-26",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-27",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-28",
+          "skipped": "margin"
+        }
+      ]
+    },
+    "distance_50_wing_10": {
+      "full": {
+        "n_trades": 22,
+        "n_skipped": 0,
+        "wins": 17,
+        "win_rate": 0.773,
+        "final_equity": 1873.1,
+        "total_return": 0.873,
+        "max_drawdown": 0.303,
+        "profit_factor": 2.07
+      },
+      "first_half": {
+        "n_trades": 11,
+        "n_skipped": 0,
+        "wins": 10,
+        "win_rate": 0.909,
+        "pnl_sum": 635.3,
+        "profit_factor": 8.24,
+        "equity_start": 1000.0,
+        "equity_end": 1635.3
+      },
+      "second_half": {
+        "n_trades": 11,
+        "n_skipped": 0,
+        "wins": 7,
+        "win_rate": 0.636,
+        "pnl_sum": 237.8,
+        "profit_factor": 1.33,
+        "equity_start": 1635.3,
+        "equity_end": 1873.1
+      },
+      "trades": [
+        {
+          "date": "2026-09-29",
+          "atm": 7675.0,
+          "short_put": 7625.0,
+          "short_call": 7725.0,
+          "credit": 1.1,
+          "pnl": 104.8,
+          "outcome": "expiry",
+          "equity": 1104.8
+        },
+        {
+          "date": "2026-09-30",
+          "atm": 7710.0,
+          "short_put": 7660.0,
+          "short_call": 7760.0,
+          "credit": 0.85,
+          "pnl": 79.8,
+          "outcome": "expiry",
+          "equity": 1184.6
+        },
+        {
+          "date": "2026-10-01",
+          "atm": 7655.0,
+          "short_put": 7605.0,
+          "short_call": 7705.0,
+          "credit": 1.55,
+          "pnl": 149.8,
+          "outcome": "expiry",
+          "equity": 1334.4
+        },
+        {
+          "date": "2026-10-02",
+          "atm": 7735.0,
+          "short_put": 7685.0,
+          "short_call": 7785.0,
+          "credit": 1.5,
+          "pnl": 144.8,
+          "outcome": "expiry",
+          "equity": 1479.2
+        },
+        {
+          "date": "2026-10-05",
+          "atm": 7735.0,
+          "short_put": 7685.0,
+          "short_call": 7785.0,
+          "credit": 0.55,
+          "pnl": -87.7,
+          "outcome": "stop",
+          "equity": 1391.5
+        },
+        {
+          "date": "2026-10-06",
+          "atm": 7825.0,
+          "short_put": 7775.0,
+          "short_call": 7875.0,
+          "credit": 0.7,
+          "pnl": 64.8,
+          "outcome": "expiry",
+          "equity": 1456.3
+        },
+        {
+          "date": "2026-10-07",
+          "atm": 7775.0,
+          "short_put": 7725.0,
+          "short_call": 7825.0,
+          "credit": 0.75,
+          "pnl": 69.8,
+          "outcome": "expiry",
+          "equity": 1526.1
+        },
+        {
+          "date": "2026-10-08",
+          "atm": 7780.0,
+          "short_put": 7730.0,
+          "short_call": 7830.0,
+          "credit": 0.6,
+          "pnl": 54.8,
+          "outcome": "expiry",
+          "equity": 1580.9
+        },
+        {
+          "date": "2026-10-09",
+          "atm": 7785.0,
+          "short_put": 7735.0,
+          "short_call": 7835.0,
+          "credit": 0.45,
+          "pnl": 39.8,
+          "outcome": "expiry",
+          "equity": 1620.7
+        },
+        {
+          "date": "2026-10-12",
+          "atm": 7810.0,
+          "short_put": 7760.0,
+          "short_call": 7860.0,
+          "credit": 0.1,
+          "pnl": 4.8,
+          "outcome": "expiry",
+          "equity": 1625.5
+        },
+        {
+          "date": "2026-10-13",
+          "atm": 7810.0,
+          "short_put": 7760.0,
+          "short_call": 7860.0,
+          "credit": 0.15,
+          "pnl": 9.8,
+          "outcome": "expiry",
+          "equity": 1635.3
+        },
+        {
+          "date": "2026-10-14",
+          "atm": 7760.0,
+          "short_put": 7710.0,
+          "short_call": 7810.0,
+          "credit": 0.8,
+          "pnl": -125.2,
+          "outcome": "stop",
+          "equity": 1510.1
+        },
+        {
+          "date": "2026-10-15",
+          "atm": 7680.0,
+          "short_put": 7630.0,
+          "short_call": 7730.0,
+          "credit": 1.7,
+          "pnl": -260.2,
+          "outcome": "stop",
+          "equity": 1249.9
+        },
+        {
+          "date": "2026-10-16",
+          "atm": 7740.0,
+          "short_put": 7690.0,
+          "short_call": 7790.0,
+          "credit": 0.7,
+          "pnl": -110.2,
+          "outcome": "stop",
+          "equity": 1139.7
+        },
+        {
+          "date": "2026-10-19",
+          "atm": 7690.0,
+          "short_put": 7640.0,
+          "short_call": 7740.0,
+          "credit": 1.15,
+          "pnl": 109.8,
+          "outcome": "expiry",
+          "equity": 1249.5
+        },
+        {
+          "date": "2026-10-20",
+          "atm": 7705.0,
+          "short_put": 7655.0,
+          "short_call": 7755.0,
+          "credit": 1.15,
+          "pnl": 109.8,
+          "outcome": "expiry",
+          "equity": 1359.3
+        },
+        {
+          "date": "2026-10-21",
+          "atm": 7730.0,
+          "short_put": 7680.0,
+          "short_call": 7780.0,
+          "credit": 1.0,
+          "pnl": 94.8,
+          "outcome": "expiry",
+          "equity": 1454.1
+        },
+        {
+          "date": "2026-10-22",
+          "atm": 7695.0,
+          "short_put": 7645.0,
+          "short_call": 7745.0,
+          "credit": 1.5,
+          "pnl": -230.2,
+          "outcome": "stop",
+          "equity": 1223.9
+        },
+        {
+          "date": "2026-10-23",
+          "atm": 7635.0,
+          "short_put": 7585.0,
+          "short_call": 7685.0,
+          "credit": 1.95,
+          "pnl": 189.8,
+          "outcome": "expiry",
+          "equity": 1413.7
+        },
+        {
+          "date": "2026-10-26",
+          "atm": 7655.0,
+          "short_put": 7605.0,
+          "short_call": 7705.0,
+          "credit": 1.4,
+          "pnl": 134.8,
+          "outcome": "expiry",
+          "equity": 1548.5
+        },
+        {
+          "date": "2026-10-27",
+          "atm": 7690.0,
+          "short_put": 7640.0,
+          "short_call": 7740.0,
+          "credit": 0.95,
+          "pnl": 89.8,
+          "outcome": "expiry",
+          "equity": 1638.3
+        },
+        {
+          "date": "2026-10-28",
+          "atm": 7730.0,
+          "short_put": 7680.0,
+          "short_call": 7780.0,
+          "credit": 2.4,
+          "pnl": 234.8,
+          "outcome": "expiry",
+          "equity": 1873.1
+        }
+      ]
+    },
+    "distance_50_wing_20": {
+      "full": {
+        "n_trades": 0,
+        "n_skipped": 22,
+        "wins": 0,
+        "win_rate": null,
+        "final_equity": 1000.0,
+        "total_return": 0.0,
+        "max_drawdown": 0.0,
+        "profit_factor": null
+      },
+      "first_half": {
+        "n_trades": 0,
+        "n_skipped": 11,
+        "wins": 0,
+        "win_rate": null,
+        "pnl_sum": 0,
+        "profit_factor": null,
+        "equity_start": 1000.0,
+        "equity_end": 1000.0
+      },
+      "second_half": {
+        "n_trades": 0,
+        "n_skipped": 11,
+        "wins": 0,
+        "win_rate": null,
+        "pnl_sum": 0,
+        "profit_factor": null,
+        "equity_start": 1000.0,
+        "equity_end": 1000.0
+      },
+      "trades": [
+        {
+          "date": "2026-09-29",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-09-30",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-01",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-02",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-05",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-06",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-07",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-08",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-09",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-12",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-13",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-14",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-15",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-16",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-19",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-20",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-21",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-22",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-23",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-26",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-27",
+          "skipped": "margin"
+        },
+        {
+          "date": "2026-10-28",
+          "skipped": "margin"
+        }
+      ]
+    }
+  }
+}
