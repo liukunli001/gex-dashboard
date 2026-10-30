@@ -125,7 +125,7 @@ td:first-child,th:first-child{text-align:left}
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--symbols", nargs="+", default=["SPY", "QQQ", "SPX"])
+    ap.add_argument("--symbols", nargs="+", default=["QQQ", "SPY", "IWM"])
     ap.add_argument("--expiry", default=None, help="override expiry, e.g. 2026-10-30")
     ap.add_argument("--output", default="dashboard.html")
     ap.add_argument("--json", default="gex_data.json")

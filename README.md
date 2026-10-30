@@ -12,21 +12,22 @@ Charm 暴露。不下单、不收费、不需要 API Key。
 CBOE 延迟行情接口，无需注册、无需 Key，约 15 分钟延迟：
 
 ```
-https://cdn.cboe.com/api/global/delayed_quotes/options/SPY.json
 https://cdn.cboe.com/api/global/delayed_quotes/options/QQQ.json
-https://cdn.cboe.com/api/global/delayed_quotes/options/_SPX.json   ← SPX 用 _SPX
+https://cdn.cboe.com/api/global/delayed_quotes/options/SPY.json
+https://cdn.cboe.com/api/global/delayed_quotes/options/IWM.json
 ```
 
 每条合约直接给出 `gamma / delta / iv / open_interest / volume`，
 所以不需要自己反推 IV、也不需要付费的 Databento / OPRA 订阅。
-代价：延迟 15 分钟、盘中 OI 不是实时 tick、SPXW 需要单独处理（CBOE 该端点对 SPXW 返回 403，
-本项目用 SPX 月度期权链覆盖，SPXW 周度链为后续扩展）。
+代价：延迟 15 分钟、盘中 OI 不是实时 tick。范围说明：QQQ 跟踪 Nasdaq-100（NDX）、
+SPY 跟踪 S&P 500（SPX）、IWM 跟踪 Russell 2000（RUT），但本项目只算三只 ETF 自身的期权链，
+不算 SPX / NDX / RUT 指数期权链——ETF 期权与指数期权是两个不同的持仓池，GEX 不能混用。
 
 ## 快速开始
 
 ```bash
 pip install -r requirements.txt   # 只有 requests
-python generate.py --symbols SPY QQQ SPX
+python generate.py --symbols QQQ SPY IWM
 # 打开 dashboard.html（纯静态页，无需服务器）
 # 数据同时存为 gex_data.json
 python generate.py --symbols SPY --expiry 2026-10-30
@@ -64,7 +65,7 @@ Total GEX   = Σ Net GEX(K)
 
 ## 本项目有 / 没有
 
-有：SPY / QQQ / SPX 的 GEX 分布、关键价位、Charm 列、静态看板、JSON 数据、单元测试。
+有：QQQ / SPY / IWM 的 GEX 分布、关键价位、Charm 列、静态看板、JSON 数据、单元测试。
 没有（GFM 有，本项目故意不做或列为后续）：Discord 自动信号推送、Iron Condor 自动推送、
 30 天回放数据库（每天存一份 `gex_data.json` 即可自己搭）、US Stocks 模块、3D IV Surface、
 实时 WebSocket（CBOE 免费端点是拉取式，每分钟跑一次 `generate.py` 即等价）。

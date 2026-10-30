@@ -1,7 +1,7 @@
 """Free CBOE delayed-quotes client.
 
 No API key needed. Data is delayed ~15 minutes (CBOE delayed quotes).
-Symbols: SPY, QQQ use their own symbol; SPX index options use "_SPX".
+Symbols: QQQ, SPY, IWM only (ETF options).
 """
 import re
 import requests
@@ -10,7 +10,8 @@ BASE = "https://cdn.cboe.com/api/global/delayed_quotes/options/{}.json"
 HEADERS = {"User-Agent": "Mozilla/5.0"}
 
 # Map the user-facing symbol to the CBOE symbol.
-CBOE_SYMBOL = {"SPY": "SPY", "QQQ": "QQQ", "SPX": "_SPX"}
+# Scope is QQQ / SPY / IWM only (ETF options, not index options).
+CBOE_SYMBOL = {"QQQ": "QQQ", "SPY": "SPY", "IWM": "IWM"}
 
 _OPT_RE = re.compile(r"^([A-Z_]+)(\d{6})([CP])(\d{8})$")
 
