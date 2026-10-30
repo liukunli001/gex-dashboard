@@ -17,11 +17,32 @@ Why this exists (optimization over v2):
     sensitivity to it is tested by sweeping distance.
 
 Input: a CBBO-1m CSV (Databento batch download, CSV encoding) with
-columns including: ts_event, symbol, bid_px_00, ask_px_00.
+columns including: ts_recv, ts_event, symbol, bid_px_00, ask_px_00.
 Symbol is OCC: e.g. SPXW 261029C07700000 = SPXW, 2026-10-29,
 Call, strike 7700.000. Only rows whose expiration == trade date
 (0DTE) are used. Rows with bid<=0 or ask<=0 on a short leg are
 rejected (no trade), as are wide spreads on any leg.
+
+Time handling (fixed 2026-10-30, verified on 2026-10-28 data):
+  * The minute bucket is ts_recv, NOT ts_event. ts_recv is UTC
+    (suffix Z) and is converted to America/New_York (DST-aware)
+    before any date/minute key is formed, so entry 10:00 and
+    exit 15:30 are ET, not UTC.
+  * ts_event is ignored entirely: it is the raw time of the last
+    quote inside the bucket, and it is empty on 69.64% of rows
+    in the 2026-10-28 file. Those empty-ts_event rows are
+    carry-forward quotes for their ts_recv minute bucket and
+    are RETAINED (they participate in that minute's bid/ask),
+    never discarded. The old code keyed on ts_event and dropped
+    them, which is why it produced no trades.
+  * ATM proxy (unchanged): at entry, ATM is the strike where
+    call mid and put mid are closest (for 0DTE, r ~ 0, put-call
+    parity makes this a good proxy). This is a PROXY inferred
+    from the option chain, NOT an observed SPX spot price, and
+    the same proxy is used minute-by-minute as the spot proxy
+    for stop/expiry checks. Short legs are ATM +/- distance,
+    wings are wing points wide. Sensitivity to the proxy is
+    tested by sweeping distance (later, not in this fix).
 
 Trade (one per day, 1 contract):
   * entry_time: e.g. 10:00 ET (parameter, swept later)
@@ -47,7 +68,10 @@ in trade count and must not be annualised as a compounding rate.
 import csv
 import re
 from collections import defaultdict
-from datetime import datetime
+from datetime import datetime, timezone
+from zoneinfo import ZoneInfo
+
+ET = ZoneInfo("America/New_York")
 
 FEE_PER_TRADE = 5.20
 OCC_RE = re.compile(r"^([A-Z]+)\s+(\d{6})([CP])(\d{8})$")
@@ -67,7 +91,10 @@ def load_cbbo_csv(path):
     """Return {date: {minute: {strike: {'C': (bid, ask), 'P': (bid, ask)}}}}.
 
     Only SPXW rows whose expiration equals the trade date are kept.
-    ts_event is parsed for date + HH:MM (ET as delivered).
+    The minute bucket is ts_recv (UTC) converted to America/New_York,
+    so date and HH:MM keys are ET. ts_event is ignored: rows with an
+    empty ts_event are carry-forward quotes for their ts_recv minute
+    and are retained, not discarded.
     """
     days = defaultdict(lambda: defaultdict(dict))
     with open(path, newline="", encoding="utf-8") as f:
@@ -76,11 +103,14 @@ def load_cbbo_csv(path):
             occ = parse_occ(row.get("symbol", ""))
             if not occ or occ["root"] != "SPXW":
                 continue
-            ts = row.get("ts_event", "")
+            ts = row.get("ts_recv", "")
             try:
-                dt = datetime.fromisoformat(ts.replace("Z", "+00:00"))
+                dt_utc = datetime.fromisoformat(ts.replace("Z", "+00:00"))
             except ValueError:
                 continue
+            if dt_utc.tzinfo is None:
+                dt_utc = dt_utc.replace(tzinfo=timezone.utc)
+            dt = dt_utc.astimezone(ET)
             date = dt.date().isoformat()
             if occ["expiration"] != date:
                 continue
