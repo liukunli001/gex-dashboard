@@ -178,3 +178,25 @@ schema cbbo-1m，symbols SPXW.OPT，pretty_px / pretty_ts，split by day）。
   +$237.80），但后半段胜率 0.909 → 0.636、PF 8.24 → 1.33，强度明显衰减，
   22 天样本下不能外推为稳定结论，更不能年化。
 - 解压 CSV 暂保留在 data/databento/，待结果核对完再决定是否删除以省空间。
+
+## 2026-10-30 真实数据曲线 UI 完成（real_curve.html，新建，未覆盖旧页）
+
+来源：results/backtest_real_sweep.json（已在仓库），22 天 2026-09-29 至 2026-10-28，
+Databento OPRA.PILLAR SPXW CBBO-1m，batch OPRA-20261030-TTQY868VHE。
+页面数据为 sweep JSON 原样嵌入（脚本核对：6 组 × 22 天明细、权益序列终值与
+full.final_equity 全部一致），不含任何 v1 / v2 模型曲线；backtest88_curve.html
+的旧模型曲线未被覆盖、未被改动。
+
+页面内容：
+- 标题即标注数据来源、样本期 22 天、费用 $5.20/笔、无滑点另计、
+  真实 bid/ask（卖 bid、买 ask）、ATM 为链内推断代理值（非观测 SPX 现货价）。
+- 每组权益曲线（canvas，起点 $1000，跳过日横走）、终值、胜率、回撤、PF、
+  交易/跳过数；点汇总行或图例按钮可切换所选组，逐笔明细表含日期、ATM、
+  短 put/call、credit、pnl（已扣费用）、outcome、跳过原因（margin）。
+- 前后半段对照（前 11 天 2026-09-29–2026-10-13 vs 后 11 天
+  2026-10-14–2026-10-28）醒目展示，附 n=22 样本小警告，不得年化、
+  不得声称复现 GFM 88# 曲线；终值 $1000 的组明确标注“未交易 — 不是打平”，
+  distance 20 / wing 20 的 $2044.80 标注仅 1 笔（2026-10-28）无结论，
+  distance 50 / wing 10 前后半段 PF 8.24 → 1.33 的衰减醒目展示。
+- 本次提交只含 real_curve.html + PROGRESS.md；结果文件已在仓库，不重复提交；
+  data/ 与 backtest88_sweep.json 等未跟踪文件未提交。
