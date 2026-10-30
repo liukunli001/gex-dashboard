@@ -200,3 +200,41 @@ full.final_equity 全部一致），不含任何 v1 / v2 模型曲线；backtest
   distance 50 / wing 10 前后半段 PF 8.24 → 1.33 的衰减醒目展示。
 - 本次提交只含 real_curve.html + PROGRESS.md；结果文件已在仓库，不重复提交；
   data/ 与 backtest88_sweep.json 等未跟踪文件未提交。
+
+## 2026-10-30 剩余可交付项全部完成（2 小时内收尾，无新下载、无费用）
+
+- IBKR 实盘代码：src/ibkr_live.py（新建）。Web API REST 路线
+  /iserver/account/{accountId}/orders，需 brokerage session（仅由调用者传入，
+  代码内不存任何凭证）。live 默认 OFF（LIVE_ENABLED=False，MODE='paper'，
+  AUTO_TRADING=False），切 live 需模块级开关 + live=True +
+  confirm='YES-I-CONFIRM' 三重门禁，否则只返回 DRAFT-NOT-SENT 草稿、
+  不发任何请求。风控全写死：单笔最大亏损 ≤$150、同时只持 1 个铁鹰、
+  绝不加仓加倍、价差过宽（>0.30 美元或 >20%）拒绝、短腿 bid<=0 拒绝、
+  净权利金低于 $0.20 拒绝、决策树方向不符拒绝、每日止损到即停、
+  15:30 ET 后强制平仓检查（只报警 + 平仓草稿，不自动发送）、Kill Switch
+  默认开启、部分成交只报警不补单、断线超 3 次后只允许平仓草稿。
+  SPXW wing10 铁鹰 max_loss 约 $760–$990，本身就不满足 ≤$150 规则，
+  代码默认拒绝 SPXW 铁鹰，规则未放宽。4 腿组合单在 Web API 上的支持
+  情况【未实测】，单腿回退路径也【未实测】，演示用假报价跑通
+  （py_compile 通过，演示 5 例全程未发请求）。
+- $1000 测算终表：docs/1000-plan.md（新建）。标题即标注测算、非实盘承诺、
+  不年化、不声称复现 GFM 88#。SPXW 保证金诚实算账：wing10 约
+  $760–$990（占账户 76%–99%），wing20 约 $1750–$1990（超 $1000）；
+  结论是 $1000 做 SPXW 铁鹰程序不可操作（无缓冲、一次止损后即可能
+  跌破下一日保证金门槛而冻结），$1000 实盘版以 QQQ/SPY/IWM ETF 铁鹰
+  为主，SPXW 仅作复现/对照研究；ETF 测算为规模类比（翼宽 $5、credit
+  $1.50 时 max_loss 约 $350，仍超 $150 风控线，需更窄翼宽，待 ETF
+  真实报价核对），不是把 SPXW 数字直接搬过去。
+- 纸上实盘对账：docs/paper-reconciliation.md（新建）。标题即标注这是
+  基于 22 天历史真实数据的纸上模拟，不是 IBKR Paper 账户实测（用户
+  尚未提供 Paper 账户与 Web API 权限，真 Paper 对接做不了，已如实写）。
+  核对通过：distance_50_wing_10 22 笔权益 $1000 → $1873.10，
+  前半段 +$635.30、后半段 +$237.80，合计 +$873.10 一致；并列出纸上
+  模拟与真 Paper 的差距清单（报价延迟、滑点、部分成交、保证金实时
+  计算、断线处理等均未实测）。
+- 五天执行清单终版：docs/five-day-plan-final.md（新建）。Day1–Day4 已完成，
+  Day5 代码层面已完成、待用户项单独列出；real_curve.html 的真实曲线
+  数据未改动（本次 git diff 无 M 项）。
+- 还差什么（只差用户提供项）：新 IBKR 账户、$1000 入金、Paper 账户、
+  Web API 权限、参数网格与定稿组点头、实盘首单逐单点头、全自动另行
+  点头（默认不开）。除此之外无未完成的可交付项。
