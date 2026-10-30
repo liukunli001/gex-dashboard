@@ -70,6 +70,26 @@ Total GEX   = Σ Net GEX(K)
 30 天回放数据库（每天存一份 `gex_data.json` 即可自己搭）、US Stocks 模块、3D IV Surface、
 实时 WebSocket（CBOE 免费端点是拉取式，每分钟跑一次 `generate.py` 即等价）。
 
+## 策略复现（src/strategy.py）
+
+```bash
+python src/strategy.py QQQ SPY IWM   # 输出 strategy.json
+```
+
+复现 GFM 公开的策略层，不含其代码、不含回测收益宣称：
+1. **状态分类**：Total GEX 正负、现货相对 Gamma Flip、相对 Call/Put Wall（1% 内算接近）；
+2. **决策树**：+GEX → 卖方（Iron Condor / Butterfly / Short Straddle），-GEX → 买方
+   （Long Straddle / Strangle），近 Call Wall → Bear Call Spread，近 Put Wall → Bull Put Spread，
+   Flip 上方 → Iron Condor / Butterfly，下方 → 方向性或观望；
+3. **0DTE 铁鹰模板**：短腿取 |delta| ≈ 0.20 的合约，长腿在短腿外约现货 1% 处，
+   权利金按真实 bid/ask 算（卖 bid、买 ask），给出最大盈利、最大亏损和上下盈亏平衡点。
+   注意：铁鹰只是模板演示——当天若按决策树应为买方，铁鹰就不是当天的推荐，
+   模板结构不等于信号。
+
+**回测边界**：免费 CBOE 端点只有当前延迟链，没有历史 tick / 持仓历史，
+所以无法复现“年化 500%-2000%、回撤 20%”这类回测数字；要验那个宣称需要付费 tick 历史
+（Databento OPRA）+ 手续费、滑点、止损规则和完整样本期，GFM 均未公开。
+
 ## 文件结构
 
 ```
@@ -77,6 +97,7 @@ generate.py          CLI：拉取 → 聚合 → 生成 dashboard.html + gex_dat
 src/cboe.py          CBOE 免费接口 + 期权代码解析（到期日/方向/行权价）
 src/gex.py           按行权价聚合 + Call/Put Wall + Flip + Max Pain
 src/bs.py            Black-Scholes Vanna / Charm
+src/strategy.py      GFM 策略树 + 0DTE 铁鹰构造器（见上节）
 tests/test_gex.py    聚合与关键价位的合成数据测试
 ```
 

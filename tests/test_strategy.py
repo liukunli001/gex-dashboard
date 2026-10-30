@@ -17,20 +17,20 @@ def test_recommend():
 
 
 def test_iron_condor_math():
-    # Synthetic chain: bid/ask set so credit is exactly $1.00.
+    # Synthetic chain at spot 1000, so the ~1% wing is 10 points and
+    # the long strikes are distinct from the short strikes.
+    # Bid/ask set so credit is exactly $1.40.
     opts = []
     for kind, strike, delta, bid, ask in [
-        ("P", 95, -0.20, 1.00, 1.10), ("P", 90, -0.05, 0.20, 0.30),
-        ("C", 105, 0.20, 1.00, 1.10), ("C", 110, 0.05, 0.20, 0.30),
+        ("P", 950, -0.20, 1.00, 1.10), ("P", 940, -0.05, 0.20, 0.30),
+        ("C", 1050, 0.20, 1.00, 1.10), ("C", 1060, 0.05, 0.20, 0.30),
     ]:
         opts.append({"expiry": "2026-10-30", "kind": kind, "strike": strike,
                      "delta": delta, "bid": bid, "ask": ask})
-    # Wing from spot 100 is 1% -> 1 point, but our synthetic strikes are
-    # 5 apart, so _find picks the nearest available wing strike.
-    ic = build_iron_condor(opts, "2026-10-30", 100.0)
+    ic = build_iron_condor(opts, "2026-10-30", 1000.0)
     assert ic["net_credit_per_share"] == 1.40, ic  # 1+1-0.3-0.3
     assert ic["max_profit"] == 140.0
-    assert ic["max_loss"] == 360.0  # (5 - 1.40) * 100
+    assert ic["max_loss"] == 860.0  # (10 - 1.40) * 100
     print("ok: iron condor math", ic)
 
 
